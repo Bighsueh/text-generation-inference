@@ -1,0 +1,11 @@
+version: '3'
+services:
+  text-generation-service:
+    image: ghcr.io/huggingface/text-generation-inference:1.4
+    command: --model-id HuggingFaceH4/zephyr-7b-beta
+    runtime: nvidia
+    shm_size: 1g
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data:/data
