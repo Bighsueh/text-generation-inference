@@ -1,13 +1,14 @@
 version: '3'
+
 services:
-  text-generation-inference:
+  text-generation:
     image: ghcr.io/huggingface/text-generation-inference:1.4
-    environment:
-      #- HUGGING_FACE_HUB_TOKEN=<your cli READ token>
-      - model-id=meta-llama/Llama-2-7b-chat-hf
-    volumes:
-      - $PWD/data:/data
+    runtime: nvidia  # Specify the GPU runtime
+    #environment:
+    #  - HUGGING_FACE_HUB_TOKEN=<your cli READ token>
     ports:
       - "8080:80"
-    runtime: nvidia  # for GPU support
     shm_size: 1g
+    volumes:
+      - $PWD/data:/data
+    command: --model-id meta-llama/Llama-2-7b-chat-hf
